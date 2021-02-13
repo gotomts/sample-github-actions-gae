@@ -1,8 +1,8 @@
 name: Sample Github Actions On GAE CI Development
 
-on: [ push ]
-  # push:
-  #   branches: [ main ]
+on:
+  push:
+    branches: [ main ]
 jobs:
   deploy:
     name: Deploy Development

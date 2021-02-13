@@ -2,7 +2,8 @@ name: Sample Github Actions On GAE CI Production
 
 on:
   push:
-    branches: [ main ]
+    tags:
+      - 'v*'
 jobs:
   deploy:
     name: Deploy Production
@@ -23,28 +24,3 @@ jobs:
           echo "$GCLOUD_SERVICE_KEY"  | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project "$GCLOUD_PROJECT_ID"
           gcloud --quiet app deploy
-
-# on:
-#   push:
-#     tags:
-#       - 'v*'
-# jobs:
-#   deploy:
-#     name: Deploy Production
-#     runs-on: ubuntu-latest
-#     environment:
-#       name: prod
-
-#     env:
-#       GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
-#       GCLOUD_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
-
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v2
-
-#       - name: GAE App Deploy Prod
-#         run: |
-#           echo "$GCLOUD_SERVICE_KEY"  | gcloud auth activate-service-account --key-file=-
-#           gcloud --quiet config set project "$GCLOUD_PROJECT_ID"
-#           gcloud --quiet app deploy
