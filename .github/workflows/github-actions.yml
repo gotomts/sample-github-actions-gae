@@ -11,21 +11,19 @@ on: [ push ]
 
   # workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
 
     env:
-      GAE_DEPLOY_KEY: ${{ secrets.GAE_DEPLOY_KEY }}
+      GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: GAE Deploy
         run: |
-          echo 'github-actions@sample-github-actions.iam.gserviceaccount.com' | gcloud auth activate-service-account --key-file "$GAE_DEPLOY_KEY"
+          echo "$GCLOUD_SERVICE_KEY"  | gcloud auth activate-service-account --key-file=-
           gcloud app deploy app.yaml --project sample-github-actions
