@@ -26,4 +26,4 @@ jobs:
       - name: GAE Deploy
         run: |
           echo "$GCLOUD_SERVICE_KEY"  | gcloud auth activate-service-account --key-file=-
-          gcloud app deploy app.yaml --project sample-github-actions
+          gcloud app deploy
