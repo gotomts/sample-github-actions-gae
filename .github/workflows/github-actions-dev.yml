@@ -1,11 +1,36 @@
-name: Sample Github Actions On GAE CI Development
+name: Sample Github Actions On GAE CI/CD Development
 
 on:
   push:
     branches: [ main ]
 jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: npm ci, build sass
+        run: |
+          npm ci
+          npm run scss
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: |
+            app.yaml
+            www
+            !www/scss/**/**.scss
+
   deploy:
-    name: Deploy Development
+    name: Deploy
+    needs: build
+
     runs-on: ubuntu-latest
     environment:
       name: dev
@@ -15,8 +40,10 @@ jobs:
       GCLOUD_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact
 
       - name: GAE App Deploy Dev
         run: |

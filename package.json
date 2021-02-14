@@ -1,0 +1,25 @@
+{
+  "name": "sample-github-actions-on-gae",
+  "version": "1.0.0",
+  "description": "GithubActionsでGAEにデプロイするサンプルです。",
+  "scripts": {
+    "scss": "node-sass -r www/scss/style.scss www/css/style.min.css --output-style compressed --source-map www/css",
+    "watch:scss": "node-sass -r -w www/scss/style.scss www/css/style.min.css --output-style compressed --source-map www/css",
+    "commit": "cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gotomts/sample-github-actions-on-gae.git"
+  },
+  "author": "Mitsuharu Goto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gotomts/sample-github-actions-on-gae/issues"
+  },
+  "homepage": "https://github.com/gotomts/sample-github-actions-on-gae#readme",
+  "devDependencies": {
+    "commitizen": "^4.2.3",
+    "cz-conventional-changelog-ja": "0.0.2",
+    "node-sass": "^5.0.0"
+  }
+}
