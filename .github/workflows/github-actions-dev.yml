@@ -21,10 +21,8 @@ jobs:
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: www without scss
           path:
             www
-            !www/scss/**.scss
 
   deploy:
     name: Deploy Development
