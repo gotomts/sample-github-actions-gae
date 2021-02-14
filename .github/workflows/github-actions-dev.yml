@@ -1,11 +1,11 @@
-name: Sample Github Actions On GAE CI Development
+name: Sample Github Actions On GAE CI/CD Development
 
-on: [ push ]
-  # push:
-  #   branches: [ main ]
+on:
+  push:
+    branches: [ main ]
 jobs:
   build:
-    name: Build Development
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,7 @@ jobs:
             !www/scss/**/**.scss
 
   deploy:
-    name: Deploy Development
+    name: Deploy
     needs: build
 
     runs-on: ubuntu-latest
@@ -44,11 +44,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: artifact
-          
-      - name: ls
-        run: |
-          ls -la
-          ls -la www
 
       - name: GAE App Deploy Dev
         run: |

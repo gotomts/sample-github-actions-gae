@@ -1,12 +1,37 @@
-name: Sample Github Actions On GAE CI Production
+name: Sample Github Actions On GAE CI/CD Production
 
 on:
   push:
     tags:
       - 'v*'
 jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: npm ci, build sass
+        run: |
+          npm ci
+          npm run scss
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: |
+            app.yaml
+            www
+            !www/scss/**/**.scss
+
   deploy:
-    name: Deploy Production
+    name: Deploy
+    needs: build
+
     runs-on: ubuntu-latest
     environment:
       name: prod
