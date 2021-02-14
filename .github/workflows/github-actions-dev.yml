@@ -24,6 +24,8 @@ jobs:
           name: artifact
           path:
             ./
+            !node_modules
+            !www/**/**.scss
 
   deploy:
     name: Deploy Development
