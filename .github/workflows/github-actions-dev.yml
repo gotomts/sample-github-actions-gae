@@ -23,7 +23,7 @@ jobs:
         with:
           name: artifact
           path:
-            /
+            www
 
   deploy:
     name: Deploy Development
@@ -45,7 +45,7 @@ jobs:
 
       - name: GAE App Deploy Dev
         run: |
-          ls -la www
+          ls -la
           echo "$GCLOUD_SERVICE_KEY"  | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project "$GCLOUD_PROJECT_ID"
           gcloud --quiet app deploy
