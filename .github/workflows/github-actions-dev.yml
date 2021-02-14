@@ -23,7 +23,7 @@ jobs:
         with:
           name: artifact
           path:
-            www
+            /
 
   deploy:
     name: Deploy Development
