@@ -23,7 +23,7 @@ jobs:
         with:
           name: artifact
           path:
-            www/css
+            www
 
   deploy:
     name: Deploy Development
@@ -42,10 +42,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: artifact
-          path:
-            www/css
-      - name: Checkout
-        uses: actions/checkout@v2
 
       - name: GAE App Deploy Dev
         run: |
