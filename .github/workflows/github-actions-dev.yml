@@ -21,6 +21,7 @@ jobs:
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
+          name: artifact
           path:
             www
 
@@ -40,7 +41,7 @@ jobs:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
-          name: www
+          name: artifact
       - name: Checkout
         uses: actions/checkout@v2
 
