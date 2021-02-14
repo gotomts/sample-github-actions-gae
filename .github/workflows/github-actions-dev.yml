@@ -47,7 +47,7 @@ jobs:
 
       - name: GAE App Deploy Dev
         run: |
-          ls -la
+          ls -la www
           echo "$GCLOUD_SERVICE_KEY"  | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project "$GCLOUD_PROJECT_ID"
           gcloud --quiet app deploy
