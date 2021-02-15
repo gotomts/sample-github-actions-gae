@@ -1,8 +1,9 @@
-name: Sample Github Actions On GAE CI/CD Production
+name: Sample Github Actions On GAE CI/CD Development
 
 on:
-  release:
-    types: [ published ]
+  push:
+    tags:
+      - 'v*'
 jobs:
   build:
     name: Build
@@ -33,17 +34,19 @@ jobs:
 
     runs-on: ubuntu-latest
     environment:
-      name: prod
+      name: dev
 
     env:
       GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
       GCLOUD_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact
 
-      - name: GAE App Deploy Prod
+      - name: GAE App Deploy Dev
         run: |
           echo "$GCLOUD_SERVICE_KEY"  | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project "$GCLOUD_PROJECT_ID"
